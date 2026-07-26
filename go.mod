@@ -1,3 +1,3 @@
-module github.com/Yandex-Practicum/go1fl-sprint6-final
+module github.com/RGBFox/Final-6-sprint
 
 go 1.24.0
