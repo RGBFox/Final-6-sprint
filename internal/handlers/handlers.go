@@ -14,7 +14,7 @@ import (
 func MainHandle(w http.ResponseWriter, req *http.Request) {
 
 	// открываем файл
-	root, err := os.OpenRoot("..")
+	root, err := os.OpenRoot(".")
 	if err != nil {
 		http.Error(w, "внутренняя ошибка", http.StatusInternalServerError)
 		return
