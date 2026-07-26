@@ -11,17 +11,18 @@ import (
 	"github.com/RGBFox/Final-6-sprint/internal/service"
 )
 
+// MainHandle - общая функция для всех запросов
 func MainHandle(w http.ResponseWriter, req *http.Request) {
 
-	// открываем файл
+	// открываем директорию
 	root, err := os.OpenRoot(".")
 	if err != nil {
 		http.Error(w, "внутренняя ошибка", http.StatusInternalServerError)
 		return
 	}
 	defer root.Close()
-	// Открываем файл для отправки
 
+	// Открываем файл для отправки
 	file, err := root.Open("index.html")
 	if err != nil {
 		http.Error(w, "файл /index.html не найден", http.StatusInternalServerError)
@@ -37,6 +38,7 @@ func MainHandle(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
+// UploadHandle - функция для обработки текста Морзе
 func UploadHandle(w http.ResponseWriter, req *http.Request) {
 	err := req.ParseMultipartForm(10 << 20) // 10 MB
 	if err != nil {
@@ -51,6 +53,7 @@ func UploadHandle(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 	defer file.Close()
+
 	// Читаем файл и конвертируем
 	needtext, err := io.ReadAll(file)
 	if err != nil {
@@ -72,6 +75,8 @@ func UploadHandle(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 	defer newFile.Close()
+
+	// записываем все данные в файл
 	_, err = newFile.WriteString(convert)
 	if err != nil {
 		http.Error(w, "записи файла", http.StatusInternalServerError)

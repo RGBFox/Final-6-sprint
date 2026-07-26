@@ -13,6 +13,7 @@ type Server struct {
 	Htserver *http.Server
 }
 
+// Route - набор настроек для сервера
 func Route(l *log.Logger) *Server {
 	mux := http.NewServeMux()
 
